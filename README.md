@@ -1,10 +1,10 @@
 # ESP8266_IoT package
 
-Thư viện ESP8266_IoT được phát triển nhằm hỗ trợ cho việc lập trình, bao gồm các tính năng chính:
-1. Kết nối với mạng Wifi
-2. Gửi dữ liệu lên server thingspeak
-Thư viện được tối ưu cho kết nối với mạch ChiPi Base Shield 
-Tài liệu hướng dẫn: [Giáo trình] Kết nối vạn vật với Microbit
+The ESP8266_IoT library is developed to support programming, including the following main features:
+1. Connect to Wifi network
+2. Upload data to Thingspeak Server
+The library is optimized for connection to the ChiPi Base Shield circuit.
+Documentation: [Textbook] Kết nối vạn vật với Microbit
 
 
 ![](https://github.com/elecfreaks/pxt-esp8266iot/blob/master/ESP8266.png)
