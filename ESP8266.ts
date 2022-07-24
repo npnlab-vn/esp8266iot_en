@@ -1,5 +1,5 @@
 //% color=#0fbc11 icon="\uf1eb"
-//% groups="['ESP8266', 'ThingSpeak', 'Adafruit','Thời gian Internet']"
+//% groups="['ESP8266', 'ThingSpeak', 'Adafruit','Internet Time']"
 namespace ESP8266_IoT {
     let wifi_connected: boolean = false
     let thingspeak_connected: boolean = false
@@ -80,7 +80,7 @@ namespace ESP8266_IoT {
     /**
     * Initialize ESP8266 module 
     */
-    //% block="Cài đặt ESP8266|RX %tx|TX %rx|Baud rate %baudrate"
+    //% block="ESP8266 setup|RX %tx|TX %rx|Baud rate %baudrate"
     //% group=ESP8266
     //% tx.defl=SerialPin.P8
     //% rx.defl=SerialPin.P12
@@ -99,10 +99,10 @@ namespace ESP8266_IoT {
     /**
     * connect to Wifi router
     */
-    //% block="Kết nối Wifi SSID = %ssid|KEY = %pw"
+    //% block="Wifi Connect SSID = %ssid|KEY = %pw"
     //% group=ESP8266
-    //% ssid.defl=Tên_Mạng
-    //% pw.defl=Mật_Khẩu weight=95
+    //% ssid.defl=wifi_name
+    //% pw.defl=wifi_password weight=95
     export function connectWifi(ssid: string, pw: string) {
         wifi_connected = false
         thingspeak_connected = false
@@ -146,7 +146,7 @@ namespace ESP8266_IoT {
 	/**
     * Wait between uploads
     */
-    //% block="Đợi kết nối %delay ms"
+    //% block="Waiting to connect %delay ms"
     //% group=ESP8266
     //% delay.min=0 delay.defl=5000 weight=90
     export function wait(delay: number) {
@@ -156,7 +156,7 @@ namespace ESP8266_IoT {
     /**
     * Check if ESP8266 successfully connected to Wifi
     */
-    //% block="Kết nối Wifi %State?"
+    //% block="Wifi state %State?"
     //% group="ESP8266"
     //% weight=85
     export function wifiState(state: boolean) {
@@ -171,7 +171,7 @@ namespace ESP8266_IoT {
     /**
     * Connect to ThingSpeak
     */
-    //% block="Kết nối ThingSpeak"
+    //% block="Connect to ThingSpeak"
     //% group=ThingSpeak
     //% write_api_key.defl=your_write_api_key 
     //% weight=80
@@ -209,7 +209,7 @@ namespace ESP8266_IoT {
     /**
     * Connect to ThingSpeak and set data. 
     */
-    //% block="Thiết lập dữ liệu | Write API key = %write_api_key|Field 1 = %n1||Field 2 = %n2|Field 3 = %n3|Field 4 = %n4|Field 5 = %n5|Field 6 = %n6|Field 7 = %n7|Field 8 = %n8"
+    //% block="Data setting | Write API key = %write_api_key|Field 1 = %n1||Field 2 = %n2|Field 3 = %n3|Field 4 = %n4|Field 5 = %n5|Field 6 = %n6|Field 7 = %n7|Field 8 = %n8"
     //% group=ThingSpeak
     //% write_api_key.defl=Khóa_Write_API_Key
     //% expandableArgumentMode="enabled"
@@ -276,7 +276,7 @@ namespace ESP8266_IoT {
     /**
     * upload data. It would not upload anything if it failed to connect to Wifi or ThingSpeak.
     */
-    //% block="Gửi dữ liệu lên ThingSpeak"
+    //% block="Upload to ThingSpeak"
     //% group=ThingSpeak
     //% weight=70
     export function uploadData() {
@@ -298,7 +298,7 @@ namespace ESP8266_IoT {
     /**
     * Check if ESP8266 successfully connected to ThingSpeak
     */
-    //% block="Kết nối ThingSpeak %State?" 
+    //% block="Connect to ThingSpeak %State?" 
     //% group=ThingSpeak
     //% weight=65
     export function thingSpeakState(state: boolean) {
@@ -314,7 +314,7 @@ namespace ESP8266_IoT {
     /**
     * Check if ESP8266 successfully uploaded data to ThingSpeak
     */
-    //% block="Gửi dữ liệu ThingSpeak %State?" 
+    //% block="Upload data to ThingSpeak %State?" 
     //% group=ThingSpeak
     //% weight=60
     export function tsLastUploadState(state: boolean) {
@@ -325,9 +325,9 @@ namespace ESP8266_IoT {
             return false
         }
     }
-    //% block="Nút nhấn | TalkBack ID = %id_talkback | API Key = %api_key "
+    //% block="Button | TalkBack ID = %id_talkback | API Key = %api_key "
     //% group=ThingSpeak
-    //% write_api_key.defl=Khóa_TalkBack
+    //% write_api_key.defl=Key_TalkBack
     //% expandableArgumentMode="enabled"
     //% weight=55
     export function requestButtonData(id_talkback: number = 0, api_key: string) :boolean{
@@ -416,10 +416,10 @@ namespace ESP8266_IoT {
     //     return led_on
     // }
 
-    //% block="Kết nối Adafruit | Username = %user_name | Key = %adafruit_key "
+    //% block="Connecto to Adafruit | Username = %user_name | Key = %adafruit_key "
     //% group=Adafruit
-    //% adafruit_key.defl=Khóa_Active_Key
-    //% user_name.defl=Tài_Khoản
+    //% adafruit_key.defl=Your_Key
+    //% user_name.defl=Your_Username
     //% weight=50
     export function adafruit_setting(user_name: string, adafruit_key: string): void {
         
@@ -427,10 +427,10 @@ namespace ESP8266_IoT {
         data = "ADA:" + user_name + ":" + adafruit_key
         sendCMD(data, 200)
     }
-    //% block="Gửi dữ liệu lên Adafruit | Feed = %feed_id | Value = %feed_value "
+    //% block="Upload data to Adafruit | Feed = %feed_id | Value = %feed_value "
     //% group=Adafruit
-    //% feed_id.defl=Tên_Feed
-    //% feed_value.defl=Giá_Trị
+    //% feed_id.defl=Feed_Key
+    //% feed_value.defl=Value
     //% weight=45
     export function adafruit_post(feed_id: string, feed_value: string): void {
         let data: string = ""
@@ -439,9 +439,9 @@ namespace ESP8266_IoT {
         waitUPTSResponse()
     }
 
-    //% block="Nút nhấn trên Adafruit | Feed = %feed_id"
+    //% block="Button on Adafruit | Feed = %feed_id"
     //% group=Adafruit
-    //% feed_id.defl=Tên_Feed
+    //% feed_id.defl=Feed_Key
     //% weight=40
     export function adafruit_get(feed_id: string): string {
         let data: string = ""
@@ -498,13 +498,13 @@ namespace ESP8266_IoT {
         serial.readString()
         return serial_str
     }
-    //% block="Kiểm tra Thời gian Internet"
-    //% group='Thời gian Internet'
+    //% block="Internet Time Request"
+    //% group='Internet Time'
     //% weight=35
     export function request_check_clock(): void {
         let data: string = ""
         //data = "GET:http://www.iforce2d.net/test.php"
-        data = "GET:http://103.170.122.203/time.php"
+        data = "GET:http://103.170.122.203/time_korea.php"
         sendCMD(data, 200)
         let response = waitGETResponse()
         const myArr = response.split(":")
@@ -534,39 +534,39 @@ namespace ESP8266_IoT {
         // }
     }
 
-    //% block="Giờ"
-    //% group='Thời gian Internet'
+    //% block="Hour"
+    //% group='Internet Time'
     //% weight=30
     export function get_internet_clock_hour(): number {
         return internet_hour
     }
 
-    //% block="Phút"
-    //% group='Thời gian Internet'
+    //% block="Minute"
+    //% group='Internet Time'
     //% weight=25
     export function get_internet_clock_minute(): number {
         return internet_minute
     }
-    //% block="Giây"
-    //% group='Thời gian Internet'
+    //% block="Second"
+    //% group='Internet Time'
     //% weight=20
     export function get_internet_clock_second(): number {
         return internet_second
     }
-    //% block="Ngày"
-    //% group='Thời gian Internet'
+    //% block="Day"
+    //% group='Internet Time'
     //% weight=15
     export function get_internet_clock_day(): number {
         return internet_day
     }
-    //% block="Tháng"
-    //% group='Thời gian Internet'
+    //% block="Month"
+    //% group='Internet Time'
     //% weight=10
     export function get_internet_clock_month(): number {
         return internet_month
     }
-    //% block="Năm"
-    //% group='Thời gian Internet'
+    //% block="Year"
+    //% group='Internet Time'
     //% weight=5
     export function get_internet_clock_year(): number {
         return internet_year
